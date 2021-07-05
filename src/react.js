@@ -23,6 +23,7 @@ function createElement(type, props, ...children) {
 class Component {
   constructor(props) {
     this.props = props;
+    this.state = {};
   }
 }
 
