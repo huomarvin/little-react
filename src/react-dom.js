@@ -3,13 +3,24 @@ function render(vdom, container) {
 }
 
 function momentEle(vdom, container) {
-  if (vdom !== false) {
-    if (typeof vdom.type === 'function') {
-      // TODO: 处理函数式组件和类组件
-    } else {
-      momentNativeEle(vdom, container);
-    }
+  if (typeof vdom.type === 'function') {
+    // 处理函数式组件和类组件
+    momentComponent(vdom, container);
+  } else {
+    // 处理原生组件
+    momentNativeEle(vdom, container);
   }
+}
+
+function momentComponent(vdom, container) {
+  let nvdom;
+  // class 组件
+  if (vdom.type.prototype.render) {
+    nvdom = new vdom.type(vdom.props).render();
+  } else {
+    nvdom = vdom.type(vdom.props);
+  }
+  momentEle(nvdom, container);
 }
 
 function momentNativeEle(vdom, container) {

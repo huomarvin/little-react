@@ -20,4 +20,10 @@ function createElement(type, props, ...children) {
   };
 }
 
-export default { createElement };
+class Component {
+  constructor(props) {
+    this.props = props;
+  }
+}
+
+export default { createElement, Component };

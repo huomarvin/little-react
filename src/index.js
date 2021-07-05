@@ -4,6 +4,29 @@ import ReactDOM from './react-dom';
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 
+function User(funcProps) {
+  return (
+    <div>
+      Hello
+      {' '}
+      {funcProps.firstName}
+      ,
+      {' '}
+      {funcProps.lastName}
+    </div>
+  );
+}
+
+class Role extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <div>{this.props.name}</div>;
+  }
+}
+
 const vdom = (
   <div className="container">
     <h1>Hello World</h1>
@@ -27,6 +50,13 @@ const vdom = (
   </div>
 );
 
-console.log('vdom', vdom);
+const vdom2 = (
+  <div>
+    <User firstName="Marvin" lastName="Huo" />
+    <Role name="资深王者荣耀玩家" />
+  </div>
+);
 
-ReactDOM.render(vdom, document.getElementById('root'));
+console.log('vdom', vdom2);
+
+ReactDOM.render(vdom2, document.getElementById('root'));
