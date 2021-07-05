@@ -21,3 +21,9 @@ yarn dev
 另一个是`ReacDOM.render` 作用是将虚拟 dom 转换成真实的 dom
 
 本次实现将`<div>Hello World</div>`挂载到 `div#root` 节点上
+
+### 添加 props 处理和无效节点处理
+
+目前特殊处理的 props 有事件`onXXX`与`className`
+
+无效节点有`true`,`false`,`null`的情况
