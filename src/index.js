@@ -4,28 +4,50 @@ import ReactDOM from './react-dom';
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 
-// function User(funcProps) {
-//   return (
-//     <div>
-//       Hello
-//       {' '}
-//       {funcProps.firstName}
-//       ,
-//       {' '}
-//       {funcProps.lastName}
-//     </div>
-//   );
-// }
+function User(funcProps) {
+  return (
+    <div>
+      {funcProps.firstName}
+      {funcProps.lastName}
+    </div>
+  );
+}
 
-// class Role extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
+class Role extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'unchangeName',
+    };
+    this.changeName = this.changeName.bind(this);
+  }
 
-//   render() {
-//     return <div>{this.props.name}</div>;
-//   }
-// }
+  changeName() {
+    this.setState({ name: 'changedName' });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps');
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  render() {
+    return (
+      <div>
+        角色:
+        {this.state.name}
+        <button onClick={this.changeName}>改变state</button>
+      </div>
+    );
+  }
+}
 
 // const vdom = (
 //   <div className="container">
@@ -70,6 +92,8 @@ import ReactDOM from './react-dom';
 const vdom4 = (
   <div>
     <div className="blue" />
+    <Role name="普通用户" />
+    {/* <User firstName="M" lastName="H" /> */}
     <button onClick={() => alert(123)}>弹出信息</button>
     Marvin
     <div>不同节点测试div</div>
@@ -80,12 +104,16 @@ const vdom4 = (
 const vdom5 = (
   <div>
     <div className="red" />
+    <Role name="超级管理员" />
+    {/* <User firstName="H" lastName="H" /> */}
     <button onClick={() => alert(456)}>弹出信息</button>
     Huo
     <p>不同节点测试p</p>
   </div>
 );
 
-ReactDOM.render(vdom4, document.getElementById('root'));
+// ReactDOM.render(vdom4, document.getElementById('root'));
 
-setTimeout(() => ReactDOM.render(vdom5, document.getElementById('root')), 1000);
+// setTimeout(() => ReactDOM.render(vdom5, document.getElementById('root')), 1000);
+
+ReactDOM.render(<Role />, document.getElementById('root'));

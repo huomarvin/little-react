@@ -1,3 +1,5 @@
+import { diff } from './utils';
+
 // 返回虚拟dom
 function createElement(type, props, ...children) {
   const eleChildren = children
@@ -25,6 +27,47 @@ class Component {
     this.props = props;
     this.state = {};
   }
+
+  updateProps(props) {
+    this.props = props;
+  }
+
+  setState(state) {
+    this.state = { ...this.state, ...state };
+    this.componentWillReceiveProps(this.props);
+    if (this.shouldComponentUpdate(this.props)) {
+      const nvdom = this.render();
+      const oldDom = this.getDOM();
+      const container = oldDom.parentNode;
+      console.log('debugger');
+      diff(nvdom, container, oldDom);
+    }
+  }
+
+  setDOM(dom) {
+    this._dom = dom;
+  }
+
+  getDOM() {
+    return this._dom;
+  }
+
+  // 生命周期函数
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  componentWillReceiveProps(nextProps) {}
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps != this.props || nextState != this.state;
+  }
+
+  componentWillUpdate(nextProps, nextState) {}
+
+  componentDidUpdate(prevProps, preState) {}
+
+  componentWillUnmount() {}
 }
 
 export default { createElement, Component };
